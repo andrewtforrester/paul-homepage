@@ -1,0 +1,8 @@
+# Database
+db.sqlite3
+
+# Settings File
+paul_homepage/settings/
+paul_homepage/settings/*
+
+
