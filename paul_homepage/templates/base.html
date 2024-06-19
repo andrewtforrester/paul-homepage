@@ -1,6 +1,8 @@
 
 {% load static wagtailcore_tags wagtailuserbar %}
 {% load static tailwind_tags %}
+{% load static %}
+{% load wagtailimages_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,9 +43,53 @@
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
+
+
+        <script type="module">
+            import Swup from 'https://unpkg.com/swup@4?module';
+            const swup = new Swup();  
+        </script>
+
     </head>
 
-    <body class="">
+    <body class="relative">
+
+        {% image settings.home.GenericSiteSettings.hero_image width-2000 as hero %}
+
+        <div class="relative w-full h-[18rem] lg:h-[20rem] xl:h-[25rem] 2xl:h-[35rem] bg-cover bg-top transition-all ease-in-out duration-300 transform" style="background-image: url('{{ hero.url }}');">
+        </div>
+
+        <div class="flex justify-center items-center mt-10">
+
+            <a class="no-underline px-4" href="/">
+                <div class="">
+                    Home
+                </div>
+            </a>
+        
+            <a class="no-underline px-4" href="/research">
+                <div class="">
+                    Research
+                </div>
+            </a>
+
+            <a class="no-underline px-4" href="/teaching">
+                <div class="">
+                    Teaching
+                </div>
+            </a>
+
+            <a class="no-underline px-4" href="/cv">
+                <div class="">
+                    CV
+                </div>
+            </a>
+        </div>
+
+        <div class="max-w-[40rem] mx-auto my-10">
+            <hr class="">
+
+        </div>
 
         <!-- Main Content Block -->
         {% block content %}
@@ -56,5 +102,7 @@
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
         {% endblock %}
+
+        
     </body>
 </html>

@@ -2,101 +2,55 @@
 {% load static %}
 {% load wagtailimages_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
 
+{% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
 
 
-    <div id='content_panel' class="relative max-w-screen-2xl flex h-[100vh]">
+    <div id='content_panel' class="relative max-w-screen-2xl h-[100vh]">
         
         <!-- Sidebar elements -->
-        <div class="relative z-10 sm:min-w-[10rem] lg:min-w-[12rem] h-full transition-all duration-300 ease-in-out transform" style="background-color: {{ page.sidebar_color }};"></div>
-        <div class="z-0 h-[150vh] hidden sm:block fixed sm:w-[10rem] lg:w-[12rem] left-0 top-[-25vh] transition-all duration-300 ease-in-out transform" style="background-color: {{ page.sidebar_color }};"></div>
-
-        
-        <section class="fixed top-[2rem] left-[10rem] lg:left-[12rem] w-[15rem] lg:w-[19rem] translate-x-[-50%] z-20 transition-all duration-300 ease-in-out transform">
-            <!-- Profile image (desktop sizes) -->
-            <div class="w-[15rem] lg:w-[19rem] mb-10 hidden sm:block">
-                {% image page.profile_image width-1000 as profile_image %}
-                <div class="w-[15rem] lg:w-[19rem] h-[15rem] lg:h-[19rem] bg-center bg-cover rounded-full transition-all duration-300 ease-in-out transform" style="background-image: url('{{ profile_image.url }}');">
-                </div>
-            </div>
 
             <!-- Buttons -->
-            <div class="hidden sm:block w-full">
-                {% for section in page.page_body %}
-                    <div id="section-button-{{ forloop.counter0 }}" class="section-button w-[10rem] lg:w-[12rem] mb-3  mx-auto group transition-all duration-300 ease-in-out transform hover:w-[11rem] hover:lg:w-[13rem] hover:cursor-pointer">
-                        <div class="p-2 text-center rounded-md" style="background-color: {{ page.button_color }};">
-                            {{ section.value.section_title }} <span class="scale-150 transition-all duration-300 ease-in-out transform group-hover:pl-8">›</span>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
+            
 
-        <section class="">
-            <!-- Profile image (mobile sizes) -->
-            <div class="sm:hidden w-full h-[20rem] bg-center bg-cover transition-all duration-300 ease-in-out transform" style="background-image: url('{{ profile_image.url }}');"></div>
+        <main id="swup" class="transition-main">
 
-            <div class="pl-6 sm:pl-40 lg:pl-52  pt-[4rem] pr-6 sm:pr-10 max-w-[58rem]">
-                <div class="text-4xl lg:text-5xl font-bold pb-8 font-serif font-black">
-                    Paul Forrester 
-                </div>
+            <div class="max-w-[40rem] mx-auto">
     
-                {% for section in page.page_body %}
+                {% for item in page.page_body %}
                     <div class="pb-8" id="section-{{ forloop.counter0 }}">
-                        <div class="text-xl lg:text-2xl font-bold pb-2">
-                            {{ section.value.section_title }}
-                        </div>
-                        {% for item in section.value.section_content %}
-                            {% if item.block_type == 'heading' %}
-                                <div class="pt-3 pb-2">
-                                    <h2 class="text-lg lg:text-xl font-semibold italic">{{item}}</h2>
-                                </div>
-                            {% elif item.block_type == 'paragraph' %}
-                                <div class="pb-2">
-                                    {{ item }}
-                                </div>
-                            {% elif item.block_type == 'numbered_list' %}
-                                <ol class="list-decimal">
-                                    {% for jtem in item.value %}
-                                        <li class="pb-2">
-                                            {{ jtem }}
-                                        </li>
-                                    {% endfor %}
-                                </ol>
-                                
-                            {% elif item.block_type == 'image' %}
-                                {% image item.value width-1000 as i_img %}
-                                <div class="w-full py-2">
-                                    <img src="{{ i_img.url }}" alt="">
-                                </div>
-                            {% elif item.block_type == 'video_embed' %}
-                                <iframe class="h-[58vw] sm:h-[12rem] md:h-[20rem] lg:h-[25rem] w-full my-4" src="{{ item }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            {% endif %}
-                        {% endfor %}
+                        {% if item.block_type == 'heading' %}
+                            <div class="pt-3 pb">
+                                <h2 class="text-xl lg:text-2xl font-bold">{{item}}</h2>
+                            </div>
+                        {% elif item.block_type == 'paragraph' %}
+                            <div class="pb-2">
+                                {{ item }}
+                            </div>
+                        {% elif item.block_type == 'numbered_list' %}
+                            <ol class="list-decimal">
+                                {% for jtem in item.value %}
+                                    <li class="pb-2">
+                                        {{ jtem }}
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                            
+                        {% elif item.block_type == 'image' %}
+                            {% image item.value width-1000 as i_img %}
+                            <div class="w-full py-2">
+                                <img src="{{ i_img.url }}" alt="">
+                            </div>
+                        {% elif item.block_type == 'video_embed' %}
+                            <iframe class="h-[58vw] sm:h-[12rem] md:h-[20rem] lg:h-[25rem] w-full my-4" src="{{ item }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        {% endif %}
                     </div>
                 {% endfor %}
-    
-                <div class="h-[50vh]"></div>
             </div>
-        </section> 
+        </main> 
     </div>
 {% endblock content %}
-
-{% block extra_js %}
-
-    <script>
-        var section_buttons = document.getElementsByClassName('section-button');
-
-        for (var i = 0; i < section_buttons.length; i++) {
-            section_buttons[i].addEventListener("click", scrollToSection);
-            document.getElementById('section-button-' + String(i)).myParam = i;
-        }
-
-        function scrollToSection(evt) {
-            document.getElementById('section-' + String(evt.currentTarget.myParam)).scrollIntoView({behavior: 'smooth'})
-        }
-    </script>
-{% endblock %}
