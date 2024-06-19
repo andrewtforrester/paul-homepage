@@ -44,6 +44,8 @@
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
         <script type="module">
             import Swup from 'https://unpkg.com/swup@4?module';
@@ -56,44 +58,60 @@
 
         {% image settings.home.GenericSiteSettings.hero_image width-2000 as hero %}
 
-        <div class="relative w-full h-[18rem] lg:h-[20rem] xl:h-[25rem] 2xl:h-[35rem] bg-cover bg-top transition-all ease-in-out duration-300 transform" style="background-image: url('{{ hero.url }}');">
+        <div class="relative w-full h-[9rem] sm:h-[18rem] lg:h-[20rem] xl:h-[25rem] 2xl:h-[35rem] bg-cover bg-top transition-all ease-in-out duration-300 transform" style="background-image: url('{{ hero.url }}');">
         </div>
+        <div class="px-4 sm:px-8 lg:px-10">
+            <div class="sm:flex justify-center items-center mt-10">
 
-        <div class="flex justify-center items-center mt-10">
+                <div class="text-2xl font-bold font-serif sm:mb-1 mb-4 sm:mb-0 text-center">Paul Forrester</div>
 
-            <a class="no-underline px-4" href="/">
-                <div class="">
-                    Home
-                </div>
-            </a>
+                <div class="hidden sm:block w-2 h-2 rounded-full bg-black ml-6 mr-4"></div>
+
+                <div class="flex justify-center items-center">
+                    <a class="no-underline px-2 hover:cursor-pointer" href="/">
+                        <div id="home" class="clickable sm:text-lg header-button">
+                            Home
+                        </div>
+                        <div id="home-scalar" class="scalar h-[.1rem] bg-black w-full transition-all ease-in-out duration-300 transform origin-center  {% if page.url == '/' %} scale-x-100 {% else %} scale-x-0 {% endif %}"></div>
+                    </a>
+                
+                    <a class="no-underline px-2 hover:cursor-pointer" href="/research">
+                        <div id="research" class="clickable sm:text-lg header-button ">
+                            Research
+                        </div>
+                        <div id="research-scalar" class="scalar h-[.1rem] bg-black w-full transition-all ease-in-out duration-300 transform origin-center  {% if page.url == '/research/' %} scale-x-100 {% else %} scale-x-0 {% endif %}"></div>
+    
+                    </a>
         
-            <a class="no-underline px-4" href="/research">
-                <div class="">
-                    Research
+                    <a class="no-underline px-2 hover:cursor-pointer" href="/teaching">
+                        <div id="teaching" class="clickable sm:text-lg header-button ">
+                            Teaching
+                        </div>
+                        <div id="teaching-scalar" class="scalar h-[.1rem] bg-black w-full transition-all ease-in-out duration-300 transform origin-center  {% if page.url == '/teaching/' %} scale-x-100 {% else %} scale-x-0 {% endif %}"></div>
+    
+                    </a>
+        
+                    <a class="no-underline px-2 hover:cursor-pointer" href="/cv">
+                        <div id="cv" class="clickable sm:text-lg header-button ">
+                            CV
+                        </div>
+                        <div id="cv-scalar" class="scalar h-[.1rem] bg-black w-full transition-all ease-in-out duration-300 transform origin-center {% if page.url == '/cv/' %} scale-x-100 {% else %} scale-x-0 {% endif %}"></div>
+    
+                    </a>
                 </div>
-            </a>
+                
+            </div>
 
-            <a class="no-underline px-4" href="/teaching">
-                <div class="">
-                    Teaching
-                </div>
-            </a>
-
-            <a class="no-underline px-4" href="/cv">
-                <div class="">
-                    CV
-                </div>
-            </a>
+            <div class="max-w-[40rem] mx-auto my-10">
+                <hr class="">
+    
+            </div>
+    
+            <!-- Main Content Block -->
+            {% block content %}
+            {% endblock %}
         </div>
-
-        <div class="max-w-[40rem] mx-auto my-10">
-            <hr class="">
-
-        </div>
-
-        <!-- Main Content Block -->
-        {% block content %}
-        {% endblock %}
+        
         
 
         {# Global javascript #}

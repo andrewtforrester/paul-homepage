@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-    a {
-        @apply underline;
+    div.ptext a {
+        @apply text-[#0100c4];
     }
 
     p {
@@ -36,5 +36,9 @@
       
       html.is-leaving.to-left .transition-main {
         transform: translateX(-1em);
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
       }
 }

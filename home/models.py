@@ -18,14 +18,26 @@ class GenericSiteSettings(BaseGenericSetting):
         'wagtailimages.Image', on_delete=models.CASCADE, blank=True, null=True, related_name='+'
     )
 
+    philpeople_icon = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, blank=True, null=True, related_name='+'
+    )
+
+    philpeople_link = models.CharField(max_length=1023)
+
+    linkedin_icon = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, blank=True, null=True, related_name='+'
+    )
+
+    linkedin_link = models.CharField(max_length=1023)
+
 
 class HomePage(Page):
     profile_image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, blank=True, null=True, related_name='+'
     )
 
-    # sidebar_color = ColorField(default="#000000")
-    # button_color = ColorField(default="#000000")
+    sidebar_color = ColorField(default="#000000")
+    button_color = ColorField(default="#000000")
 
     
 

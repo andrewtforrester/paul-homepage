@@ -10,29 +10,21 @@
 {% block content %}
 
 
-    <div id='content_panel' class="relative max-w-screen-2xl h-[100vh]">
-        
-        <!-- Sidebar elements -->
-
-            <!-- Buttons -->
-            
-
         <main id="swup" class="transition-main">
-
             <div class="max-w-[40rem] mx-auto">
     
                 {% for item in page.page_body %}
-                    <div class="pb-8" id="section-{{ forloop.counter0 }}">
+                    <div class="" id="section-{{ forloop.counter0 }}">
                         {% if item.block_type == 'heading' %}
-                            <div class="pt-3 pb">
-                                <h2 class="text-xl lg:text-2xl font-bold">{{item}}</h2>
+                            <div class="text-xl lg:text-2xl font-bold pb-6">
+                                {{item}}
                             </div>
                         {% elif item.block_type == 'paragraph' %}
-                            <div class="pb-2">
+                            <div class="pb-4 ptext">
                                 {{ item }}
                             </div>
                         {% elif item.block_type == 'numbered_list' %}
-                            <ol class="list-decimal">
+                            <ol class="pl-6 sm:pl-0 list-decimal">
                                 {% for jtem in item.value %}
                                     <li class="pb-2">
                                         {{ jtem }}
@@ -42,7 +34,7 @@
                             
                         {% elif item.block_type == 'image' %}
                             {% image item.value width-1000 as i_img %}
-                            <div class="w-full py-2">
+                            <div class="w-full pb-4">
                                 <img src="{{ i_img.url }}" alt="">
                             </div>
                         {% elif item.block_type == 'video_embed' %}
@@ -51,6 +43,40 @@
                     </div>
                 {% endfor %}
             </div>
+
+
+            <div class="my-20">
+                {% if page.url == "/" %}
+                    <div class="flex items-center justify-center">
+                        <div class="w-8 h-8 mx-2">
+                            <a href="{{ settings.home.GenericSiteSettings.philpeople_link }}">
+                                {% image settings.home.GenericSiteSettings.philpeople_icon width-200  %}
+                            </a>
+                            
+                            
+                        </div>
+
+                        <div class="w-8 h-8 mx-2">
+                            <a href="{{ settings.home.GenericSiteSettings.linkedin_link }}">
+                                {% image settings.home.GenericSiteSettings.linkedin_icon width-200  %}
+                            </a>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+            
         </main> 
-    </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script>
+            $(".clickable").on("click", function() {  
+                $(".scalar").removeClass("scale-x-100");
+                $(".scalar").addClass("scale-x-0");
+                $("#" + this.id + "-scalar").addClass("scale-x-100");
+                $("#" + this.id + "-scalar").removeClass("scale-x-0");
+            });
+
+    </script>
+{% endblock %}
